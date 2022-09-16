@@ -1,0 +1,89 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 18px 70px;
+}
+
+.header__theme {
+  background: #073042;
+}
+
+.header__logo {
+  height: 38px;
+  width: 38px;
+  transition: all .4s ease-in-out;
+}
+
+.header__logo:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.header__nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.header__login {
+  background-color: #2BE080;
+  border: 1px solid #2BE080;
+  border-radius: 3px;
+  padding: 0;
+  margin: auto 0;
+  width: 76px;
+  height: 32px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: all .4s ease-in-out;
+  white-space: nowrap;
+}
+
+.header__login:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+.header__reg {
+  border:none;
+  background-color: #073042;
+  color: #FFFFFF;
+  padding: 0;
+  margin-right: 30px;
+  transition: all .4s ease-in-out;
+}
+
+.header__reg:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+
+@media (max-width: 887px) {
+  .header {
+    padding: 18px 30px;
+  }
+}
+
+@media (max-width: 320px) {
+  .header {
+    padding: 18px 14px;
+  }
+
+  .header__login {
+    width: 54px;
+    height: 26px;
+  }
+
+  .header__nav {
+    font-size: 10px;
+  }
+  
+  .header__reg {
+    margin-right: 14px;
+  }
+}
