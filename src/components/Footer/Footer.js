@@ -15,7 +15,7 @@ export default function Footer() {
               href="https://practicum.yandex.ru/"
               target="_blank"
               aria-label="Яндекс.Практикум"
-              className="app__button footer__link" rel="noreferrer"
+              className="footer__link app__button" rel="noreferrer"
             >
               Яндекс.Практикум
             </a>

@@ -56,16 +56,6 @@
 
 }
 
-.portfolio__item-name:hover {
-  opacity: 0.6;
-  cursor: pointer;
-}
-
-.portfolio__item-pic:hover {
-  opacity: 0.6;
-  cursor: pointer;
-}
-
 @media (max-width: 770px) {
   .portfolio {
       padding: 0 50px 90px;

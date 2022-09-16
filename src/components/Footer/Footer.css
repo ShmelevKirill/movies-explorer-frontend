@@ -50,11 +50,6 @@
   padding: 0 0 0 20px;
 }
 
-.footer__link:hover {
-  opacity: 0.6;
-  cursor: pointer;
-}
-
 @media (max-width: 770px) {
   .footer {
       padding: 79px 30px 20px;

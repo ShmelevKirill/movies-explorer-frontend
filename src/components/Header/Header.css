@@ -4,21 +4,20 @@
   align-items: center;
   box-sizing: border-box;
   padding: 18px 70px;
+  min-height: 74px;
 }
 
-.header__theme {
+.header_theme_color {
   background: #073042;
+}
+
+.header_theme_white {
+  background: #fff;
 }
 
 .header__logo {
   height: 38px;
   width: 38px;
-  transition: all .4s ease-in-out;
-}
-
-.header__logo:hover {
-  opacity: 0.6;
-  cursor: pointer;
 }
 
 .header__nav {
@@ -40,13 +39,7 @@
   height: 32px;
   overflow: hidden;
   text-overflow: ellipsis;
-  transition: all .4s ease-in-out;
   white-space: nowrap;
-}
-
-.header__login:hover {
-  opacity: 0.6;
-  cursor: pointer;
 }
 
 .header__reg {
@@ -55,12 +48,6 @@
   color: #FFFFFF;
   padding: 0;
   margin-right: 30px;
-  transition: all .4s ease-in-out;
-}
-
-.header__reg:hover {
-  opacity: 0.6;
-  cursor: pointer;
 }
 
 @media (max-width: 887px) {

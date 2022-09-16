@@ -3,20 +3,20 @@ import { Link } from 'react-router-dom';
 import './Header.css';
 import logo from '../../images/logo.svg';
 
-
-function Header(isTheme) {
+export default function Header({ theme, positionStyle }) {
+// const headerClassName = 'header' + 'header_theme_' + theme + 'header_style_' + 
+//   positionStyle;
   return (
-    <header className={`header ${isTheme && 'header__theme'}`}>
-      <Link to='/' className='header__logo-link'>
-        <img className='header__logo' src={logo} alt='Логотип' />
+    <header className='header header_theme_color'>
+      <Link to={'/'}>
+        <img className='header__logo app__button' src={logo} alt='Логотип'></img>
       </Link>
       <nav className="header__nav">
-        <button className='header__reg'>Регистрация</button>
-        <button className='header__login'>Войти</button>
+        <button className='header__reg app__button'>Регистрация</button>
+        <button className='header__login app__button'>Войти</button>
       </nav>
      
     </header>
   );
 }
 
-export default Header;
