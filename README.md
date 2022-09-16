@@ -55,7 +55,6 @@ Movies Explorer - это интерактивная SPA-страница, на �
 - ReactJS
 
 # Ссылки:
-- [Макет Дипломной работы в Figma](https://www.figma.com/file/3S0FrVFvGLbM0RAk7mTaIT/Diplom?node-id=891%3A3857)
 - Frontend: 
 - Backend: 
   - Repository: https://github.com/ShmelevKirill/movies-explorer-api/
