@@ -1,21 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from 'react-router-dom';
 import './Header.css';
+import "../App/App.css";
 import logo from '../../images/logo.svg';
+import Navigation from "../Navigation/Navigation";
 
-export default function Header({ theme, positionStyle }) {
-// const headerClassName = 'header' + 'header_theme_' + theme + 'header_style_' + 
-//   positionStyle;
+export default function Header({ theme, positionStyle, isLogged }) {
+  const [isNavClosed, setIsNavClosed] = useState(true);
+
+  function openNav() {
+    setIsNavClosed(false);
+  }
+  function closeNav() {
+    setIsNavClosed(true);
+  }
+
+const headerClassName =
+  "header " +
+  "header_theme_" +
+  theme +
+  " header_style_" +
+  positionStyle;
+const logoClassName =
+  "app__button header__logo header__logo_style_" + positionStyle;
+
   return (
-    <header className='header header_theme_color'>
-      <Link to={'/'}>
-        <img className='header__logo app__button' src={logo} alt='Логотип'></img>
+    <header className={headerClassName}>
+      <Link to={"/"}>
+        <img
+          src={logo}
+          alt="Логотип"
+          aria-label="Главная страница"
+          className={logoClassName}
+        ></img>
       </Link>
-      <nav className="header__nav">
-        <button className='header__reg app__button'>Регистрация</button>
-        <button className='header__login app__button'>Войти</button>
-      </nav>
-     
+      {positionStyle !== "auth" && (
+        <Navigation
+          isLogged={isLogged}
+          isClosed={isNavClosed}
+          onNavOpen={openNav}
+          onNavClose={closeNav}
+        />
+      )}
     </header>
   );
 }
