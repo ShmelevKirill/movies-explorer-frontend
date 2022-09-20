@@ -100,8 +100,6 @@ function Navigation() {
           )}
         </section>
       )}
-
-
     </>
   );
 }
