@@ -6,6 +6,13 @@ import Main from '../Main/Main';
 import Footer from "../Footer/Footer";
 import Register from "../Register/Register";
 import Navigation from "../Navigation/Navigation";
+import NotFound from "../NotFound/NotFound";
+import Movies from "../Movies/Movies";
+import * as auth from "../../utils/Auth.js";
+import { useHistory } from "react-router-dom";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
+
 
 import './App.css';
 
@@ -13,6 +20,7 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(true);
 
   return (
+    // <CurrentUserContext.Provider value={currentUser}>
     <div className="app">
         <Switch>
           <Route exact path="/">
@@ -43,9 +51,11 @@ function App() {
             <Register />
           </Route>
           <Route path="*">
+          <NotFound />
           </Route>
         </Switch>
       </div>
+      // </CurrentUserContext.Provider>
   );
 }
 
