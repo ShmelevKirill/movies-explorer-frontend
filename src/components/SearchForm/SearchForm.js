@@ -1,6 +1,7 @@
 import React from "react";
 import "./SearchForm.css";
 import icon from "../../images/search-icon.svg";
+import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
 export default function SearchForm() {
   return (
@@ -13,7 +14,7 @@ export default function SearchForm() {
             placeholder="Фильм"
             className="search-form__query"
             required
-          ></input>
+          />
           <button className="app__button search-form__find-button" type="submit">Найти</button>
         </fieldset>
         <FilterCheckbox text="Короткометражки" />

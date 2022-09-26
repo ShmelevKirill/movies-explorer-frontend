@@ -38,8 +38,6 @@ const logoClassName =
         <Navigation
           isLogged={isLogged}
           isClosed={isNavClosed}
-          onNavOpen={openNav}
-          onNavClose={closeNav}
         />
       )}
     </header>

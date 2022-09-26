@@ -2,14 +2,14 @@ import React from 'react'
 import SearchForm from "../SearchForm/SearchForm"
 import Preloader from "../Preloader/Preloader"
 import MoviesCardList from "../MoviesCardList/MoviesCardList"
-import "./Movies.css"
+import "./SavedMovies.css"
 
-export default function Movies() {
+export default function SavedMovies() {
   return (
-    <main className='movies'>
-        <SearchForm />
-        <Preloader />
-        <MoviesCardList />
-    </main>
+    <main className='saved-movies'>
+    <SearchForm />
+    <Preloader />
+    <MoviesCardList />
+</main>
   )
 }

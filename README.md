@@ -61,3 +61,5 @@ Movies Explorer - это интерактивная SPA-страница, на �
   - Website: 
 
 IP: 
+
+- Макет: https://dropmefiles.com/UzMF1

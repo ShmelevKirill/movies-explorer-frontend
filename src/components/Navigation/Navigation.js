@@ -1,15 +1,18 @@
+import React from 'react';
 import './Navigation.css';
 import { ReactComponent as NavigationIcon } from '../../images/burger.svg';
 import { ReactComponent as CrossIcon } from '../../images/cross.svg';
 import { useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 
 function Navigation() {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 800);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 840);
   const [isNavigationOpen, setIsNavigationOpen] = useState(false);
 
+  const isMain = useRouteMatch({ path: "/", exact: true });
+
   function updateScreenType() {
-    setIsMobile(window.innerWidth <= 800);
+    setIsMobile(window.innerWidth <= 840);
   }
 
   function openPopup() {
@@ -38,18 +41,18 @@ function Navigation() {
           <div className='navigation__main-nav'>
             <NavLink
               to='/movies'
-              className='navigation__link'
+              className={`navigation__link ${isMain ? 'navigation__link_main' : ''}`}
               activeClassName='navigation__link_current'>
               Фильмы
             </NavLink>
             <NavLink
               to='/saved-movies'
-              className='navigation__link'
+              className={`navigation__link ${isMain ? 'navigation__link_main' : ''}`}
               activeClassName='navigation__link_current'>
               Сохранённые фильмы
             </NavLink>
           </div>
-          <NavLink to='/profile' className='navigation__profile-link app__button'>
+          <NavLink to='/profile' className={`navigation__profile-link app__button ${isMain ? 'navigation__link_main' : ''}`}>
             Аккаунт
             <div className='navigation__user-icon' />
           </NavLink>

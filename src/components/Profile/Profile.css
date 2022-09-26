@@ -1,0 +1,141 @@
+.profile-form {
+  margin: 74px auto 70px;
+  width: 410px;
+}
+
+.profile-form__greeting {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 29px;
+  text-align: center;
+  width: 100%;
+  margin: 0 0 123px;
+}
+
+.profile-form__input-label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 14px;
+  border: none;
+  border-bottom: solid 1px #E8E8E8;
+  padding-bottom: 16px;
+  margin: 0 0 17px;
+}
+
+.profile-form__input {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 11px;
+  line-height: 14px;
+  text-align: right;
+  border: none;
+  background-color: white;
+  margin-left: 15px;
+  width: 80%;
+}
+
+.profile-form__input-label:last-of-type {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 220px;
+}
+
+
+.profile-form__edit-button {
+  display: block;
+  margin: 20px 0 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  width: 100%;
+}
+
+
+.profile-form__exit-button {
+  display: block;
+  margin: 16px 0 0;
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  text-align: center;
+  color: #FF3055;
+  width: 100%;
+
+}
+
+.profile-form__save-button {
+  background: #3456F3;
+  border-radius: 3px;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #FFFFFF;
+  width: 100%;
+  height: 45px;
+  margin: 20px 0 0;
+  border: none;
+}
+
+.profile-form__save-button:disabled {
+  color: #C2C2C2;
+  background: #F8F8F8;
+}
+
+.profile-form__button_hide {
+  display: none;
+}
+
+@media (max-width: 770px) {
+  .profile-form {
+      margin-top: 236px;
+  }
+
+  .profile-form__greeting {
+      margin-bottom: 96px;
+  }
+
+  .profile-form__input-label:last-of-type {
+      margin-bottom: 210px;
+  }
+}
+
+@media (max-width: 460px) {
+  .profile-form {
+      margin-top: 70px;
+      width: 260px;
+  }
+
+  .profile-form__greeting {
+      margin-bottom: 80px;
+  }
+
+  .profile-form__input-label:last-of-type {
+      margin-bottom: 379px;
+  }
+
+  .profile-form__edit-button {
+      font-size: 12px;
+      line-height: 15px;
+  }
+
+  .profile-form__exit-button {
+      font-size: 12px;
+      line-height: 15px;
+  }
+}

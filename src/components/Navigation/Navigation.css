@@ -94,6 +94,10 @@
   margin-left: 13px;
 }
 
+.navigation__link_main {
+  color: #fff;
+}
+
 @media screen and (max-width: 795px) {
   .navigation__main-nav {
     flex-direction: column;
@@ -115,6 +119,7 @@
   .navigation__profile-link {
     margin: 0 auto;
   }
+
 }
 
 @media screen and (max-width: 768px) {
@@ -132,6 +137,7 @@
 
 @media screen and (max-width: 438px) {
   .navigation__link {
-    padding-top: 15px;
+    padding-top: 22px;
   }
 }
+
