@@ -7,7 +7,6 @@
 }
 
 .movies-card__save-button {
-  background-image: url(../../images/like.svg);
   width: 24px;
   height: 24px;
   border: none;
@@ -17,6 +16,18 @@
   background-size: contain;
   background-position: center;
   margin: 10px 0 25px 0;
+}
+
+.movies-card__save-button_mode_saved {
+  background-image: url(../../images/like-active.svg);
+}
+
+.movies-card__save-button_mode_unsaved {
+  background-image: url(../../images/like.svg);
+}
+
+.movies-card__save-button_cross {
+  background-image: url(../../images/delete.svg);
 }
 
 .movies-card__info {
