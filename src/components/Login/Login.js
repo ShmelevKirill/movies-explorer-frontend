@@ -1,6 +1,6 @@
 import React from 'react'
 import AuthForm from '../AuthForm/AuthForm'
-export default function Login() {
+export default function Login({handleLogin}) {
   return (
     <AuthForm
     formName="loginForm"
@@ -9,6 +9,7 @@ export default function Login() {
     navText="Ещё не зарегистрированы?" 
     navLinkTo="/signup"
     navLinkText="Регистрация"
+    onSubmit={handleLogin}
    />
   )
 }

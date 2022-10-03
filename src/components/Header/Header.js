@@ -5,7 +5,7 @@ import "../App/App.css";
 import logo from '../../images/logo.svg';
 import Navigation from "../Navigation/Navigation";
 
-export default function Header({ theme, positionStyle, isLogged }) {
+export default function Header({ theme, positionStyle, isLogged, isNavigation }) {
   const [isNavClosed, setIsNavClosed] = useState(true);
 
   function openNav() {
@@ -34,10 +34,13 @@ const logoClassName =
           className={logoClassName}
         ></img>
       </Link>
+      {isNavigation && <Navigation />}
       {positionStyle !== "auth" && (
         <Navigation
           isLogged={isLogged}
           isClosed={isNavClosed}
+          onNavOpen={openNav}
+          onNavClose={closeNav}
         />
       )}
     </header>

@@ -1,4 +1,3 @@
-import React from 'react';
 import './Navigation.css';
 import { ReactComponent as NavigationIcon } from '../../images/burger.svg';
 import { ReactComponent as CrossIcon } from '../../images/cross.svg';
@@ -24,13 +23,9 @@ function Navigation() {
   }
 
   useEffect(() => {
-    window.addEventListener('resize', () => {
-      updateScreenType();
-    });
+    window.addEventListener('resize', updateScreenType);
     return () => {
-      window.removeEventListener('resize', () => {
-        updateScreenType();
-      });
+      window.removeEventListener('resize', updateScreenType);
     };
   }, []);
 

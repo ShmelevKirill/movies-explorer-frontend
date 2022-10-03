@@ -1,11 +1,11 @@
-import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect } from 'react-router-dom';
 
-const ProtectedRoute = ({ loggedIn, children, ...props }) => {
+function ProtectedRoute({ redirectTo, hasPermission, children }) {
   return (
-    <Route {...props}>{loggedIn 
-      ? children : (loggedIn===false && <Redirect to="/"/> )}</Route>
+    <Route>
+      {() => (hasPermission ? children : <Redirect to={redirectTo} />)}
+    </Route>
   );
-};
+}
 
 export default ProtectedRoute;

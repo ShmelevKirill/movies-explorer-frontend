@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./AuthForm.css";
 import {useFormWithValidation} from "../Validator/Validator";
@@ -10,54 +10,45 @@ export default function AuthForm({
   navText,
   navLinkTo,
   navLinkText,
+  onSubmit,
 }) {
+  const [isDisabled, setIsDisabled] = useState(false);
 
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  function handleNameChange(e) {
-    setName(e.target.value);
+  const { values, handleChange, errors, isValid } =
+    useFormWithValidation();
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    setIsDisabled (true);
+    onSubmit(values)
+    .then(()=> setIsDisabled (false))
+    .catch (()=>setIsDisabled (false));
   }
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-  }
-  function handlePasswordChange(e) {
-    setPassword(e.target.value);
-  }
- const { values, handleChange, errors, isValid, resetForm, setValues } = useFormWithValidation();
-  function handleFormSubmit (e) {
-   const newValues = {}
-e.preventDefault ();
-console.log ("Submit: ", values);
-
-console.log ("reset: ", values);
-  }
-
-
- useEffect(() => {
-
-
-   console.log (values);
-}, []);
 
   return (
-    <form className="auth-form" name={formName} noValidate
-    onSubmit={handleFormSubmit}>
+    <form
+      className="auth-form"
+      name={formName}
+      noValidate
+      onSubmit={handleFormSubmit}
+    >
       <h2 className="auth-form__title">{title}</h2>
-      {(formName !== "loginForm") && <label className='app__button auth-form__input-label'>
-        Имя
-        <input
-          type="text"
-          className="auth-form__input"
-          placeholder="Имя"
-          name="name"
-          value={values.name}
-          onChange={handleChange}
-          required
-        ></input>
-                <span className="auth-form__error-message">{errors.name}</span>
-
-      </label>}
+      {formName !== "loginForm" && (
+        <label className="app__button auth-form__input-label">
+          Имя
+          <input
+            type="text"
+            className="auth-form__input"
+            placeholder="Имя"
+            name="name"
+            value={values.name}
+            onChange={handleChange}
+            disabled={isDisabled}
+            required
+          ></input>
+          <span className="auth-form__error-message">{errors.name}</span>
+        </label>
+      )}
       <label className="app__button auth-form__input-label">
         E-mail
         <input
@@ -65,12 +56,14 @@ console.log ("reset: ", values);
           className="auth-form__input"
           placeholder="Email"
           name="email"
+          pattern="\S+@\S+\.\S+"
+          title="Например: test@test.ru"
           value={values.email}
           onChange={handleChange}
+          disabled={isDisabled}
           required
         ></input>
-                <span className="auth-form__error-message">{errors.email}</span>
-
+        <span className="auth-form__error-message">{errors.email}</span>
       </label>
       <label className="app__button auth-form__input-label">
         Пароль
@@ -85,9 +78,11 @@ console.log ("reset: ", values);
         ></input>
         <span className="auth-form__error-message">{errors.password}</span>
       </label>
-
-      <button className="auth-form__button app__button" type="submit"
-      disabled={!isValid}>
+      <button
+        className="auth-form__button app__button"
+        type="submit"
+        disabled={!isValid || isDisabled}
+      >
         {buttonText}
       </button>
       <span className="auth-form__nav-span">

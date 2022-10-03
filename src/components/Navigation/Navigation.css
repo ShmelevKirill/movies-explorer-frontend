@@ -98,7 +98,7 @@
   color: #fff;
 }
 
-@media screen and (max-width: 795px) {
+@media screen and (max-width: 840px) {
   .navigation__main-nav {
     flex-direction: column;
   }

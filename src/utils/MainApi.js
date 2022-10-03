@@ -1,70 +1,108 @@
-import { checkResponse } from "./utils";
-export const BASE_URL = `${window.location.protocol}${process.env.REACT_APP_API_URL || '//localhost:3001'}`;
-
+import { BASE_MAIN_SERVER_URL } from '../constants';
 
 class MainApi {
-    constructor({ baseUrl, headers }) {
-      this._baseUrl = baseUrl;
-      this._headers = headers;
-    }
-    getProfile() {
-        return fetch(`${this._baseUrl}/users/me`, {
-          credentials: 'include',
-          headers: this._headers,
-        }).then(checkResponse);
-      }
-    
-      editProfile(name, email) {
-        return fetch(`${this._baseUrl}/users/me`, {
-          method: "PATCH",
-          credentials: 'include',
-          headers: this._headers,
-          body: JSON.stringify({
-            name: name,
-            email: email,
-          }),
-        }).then(checkResponse);
-      }
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
+  }
 
-      getSavedMovies() {
-        return fetch(`${this._baseUrl}/movies`, {
-          credentials: 'include',
-          headers: this._headers,
-        }).then(checkResponse);
-      }
+  setToken(token) {
+    this._headers = {
+      ...basicHeaders,
+      Authorization: `Bearer ${token}`,
+    };
+  }
 
-      addMovie(country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId) {
-        return fetch(`${this._baseUrl}/movies`, {
-          method: "POST",
-          credentials: 'include',
-          headers: this._headers,
-          body: JSON.stringify({
-            country: country, 
-            director: director, 
-            duration: duration, 
-            year: year, 
-            description: description, 
-            image: image, 
-            trailerLink: trailerLink, 
-            nameRU: nameRU, 
-            nameEN: nameEN, 
-            thumbnail: thumbnail, 
-            movieId: movieId
-          }),
-        }).then(checkResponse);
-      }
-      deleteMovie(_id) {
-        return fetch(`${this._baseUrl}/cards/${_id}`, {
-          method: "DELETE",
-          credentials: 'include',
-          headers: this._headers,
-        }).then(checkResponse);
-      }
+  removeToken() {
+    this._headers = basicHeaders;
+  }
+
+  getUserProfile() {
+    return fetch(`${this._baseUrl}/users/me`, { headers: this._headers }).then(
+      handleOriginalResponse
+    );
+  }
+
+  patchUserProfile(email, name) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        email: email,
+        name: name,
+      }),
+    }).then(handleOriginalResponse);
+  }
+
+  getAllSavedMovies() {
+    return fetch(`${this._baseUrl}/movies`, { headers: this._headers }).then(
+      handleOriginalResponse
+    );
+  }
+
+  postMovie(
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailer,
+    thumbnail,
+    movieId,
+    nameRU,
+    nameEN
+  ) {
+    return fetch(`${this._baseUrl}/movies`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        country: country,
+        director: director,
+        duration: duration,
+        year: year,
+        description: description,
+        image: image,
+        trailer: trailer,
+        thumbnail: thumbnail,
+        movieId: movieId,
+        nameRU: nameRU,
+        nameEN: nameEN,
+      }),
+    }).then(handleOriginalResponse);
+  }
+
+  deleteMovie(_id) {
+    return fetch(`${this._baseUrl}/movies/${_id}`, {
+      method: 'DELETE',
+      headers: this._headers,
+    }).then(handleOriginalResponse);
+  }
 }
 
-export const mainApi = new MainApi({
-    baseUrl: BASE_URL,
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+// helper
+const handleOriginalResponse = (res) => {
+  if (res.ok) {
+    return res.json().then((result) => result);
+  }
+
+  res
+    .json()
+    .then((result) => console.log('AuthApi error:', result))
+    .catch((err) => console.log('AuthApi error:', err));
+
+  return Promise.reject(res);
+};
+
+const basicHeaders = {
+  'Content-Type': 'application/json',
+  'User-agent':
+    'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36',
+};
+
+const mainApi = new MainApi({
+  baseUrl: BASE_MAIN_SERVER_URL,
+  headers: basicHeaders,
+});
+
+export default mainApi;
