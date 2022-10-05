@@ -1,48 +1,20 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { NavLink, useRouteMatch } from 'react-router-dom';
 import './Header.css';
-import "../App/App.css";
-import logo from '../../images/logo.svg';
+import { ReactComponent as Logo } from '../../images/logo.svg';
 import Navigation from "../Navigation/Navigation";
+import SignButtons from '../SignButtons/SignButtons';
 
-export default function Header({ theme, positionStyle, isLogged, isNavigation }) {
-  const [isNavClosed, setIsNavClosed] = useState(true);
+export default function Header({ isNavigation }) {
 
-  function openNav() {
-    setIsNavClosed(false);
-  }
-  function closeNav() {
-    setIsNavClosed(true);
-  }
-
-const headerClassName =
-  "header " +
-  "header_theme_" +
-  theme +
-  " header_style_" +
-  positionStyle;
-const logoClassName =
-  "app__button header__logo header__logo_style_" + positionStyle;
+  const isMain = useRouteMatch({ path: "/", exact: true });
 
   return (
-    <header className={headerClassName}>
-      <Link to={"/"}>
-        <img
-          src={logo}
-          alt="Логотип"
-          aria-label="Главная страница"
-          className={logoClassName}
-        ></img>
-      </Link>
+    <header className={`header ${isMain ? 'header_theme_color' : ''}`}>
+      <NavLink to='/' className='header__home'>
+        <Logo className='header__logo' />
+      </NavLink>
       {isNavigation && <Navigation />}
-      {positionStyle !== "auth" && (
-        <Navigation
-          isLogged={isLogged}
-          isClosed={isNavClosed}
-          onNavOpen={openNav}
-          onNavClose={closeNav}
-        />
-      )}
+      {!isNavigation && <SignButtons />}
     </header>
   );
 }

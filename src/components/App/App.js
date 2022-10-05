@@ -226,7 +226,7 @@ function App() {
         localStorage.setItem('userData', JSON.stringify(data.data));
         setCurrentUser(data.data);
         setIsInfoTooltipOpen(true);
-        setInfoTooltipPositiveMessage('Новые данные профиля сохранены');
+        setInfoTooltipPositiveMessage('Новые данные сохранены');
         setIsResponseSuccessful(true);
       })
       .catch((error) => {
@@ -292,7 +292,7 @@ function App() {
         })
         .catch((error) => {
           setSearchAllResultMessage(
-            'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз'
+            'Во время запроса произошла ошибка. Возможно проблема с соединением или сервер недоступен. Подождите и попробуйте ещё раз'
           );
           console.error(error);
         });
@@ -399,7 +399,7 @@ function App() {
               console.error(error);
             });
         } else {
-          console.error('Что-то пошло не так при удалении фильма.', data);
+          console.error('Что-то пошло не так', data);
         }
       })
       .catch((error) => console.error(error));
@@ -410,13 +410,12 @@ function App() {
       <div className='app'>
         <Switch>
           <Route exact path='/'>
-            <Header theme="color" positionStyle="main" isNavigation={isLogged} />
+            <Header isNavigation={isLogged} />
             <Main />
             <Footer />
           </Route>
 
           <Route path='/signin'>
-            <Header theme="light" positionStyle="auth"/>
             <Login
               initialValues={currentUser || {}}
               validate={validate}
@@ -425,7 +424,6 @@ function App() {
           </Route>
 
           <Route path='/signup'>
-            <Header theme="light" positionStyle="auth"/>
             <Register validate={validate} signUp={signUp} />
           </Route>
 
@@ -433,7 +431,7 @@ function App() {
             path='/profile'
             redirectTo='/signin'
             hasPermission={isLogged}>
-            <Header theme="light" positionStyle="main" isNavigation={isLogged} />
+            <Header isNavigation={isLogged} />
             <Profile
               signOut={signOut}
               validate={validate}
@@ -445,7 +443,7 @@ function App() {
             path='/movies'
             redirectTo='/signin'
             hasPermission={isLogged}>
-            <Header theme="light" positionStyle="main" isNavigation={isLogged} />
+            <Header isNavigation={isLogged} />
             <Movies
               preloading={preloading}
               search={searchAllMovies}
@@ -463,7 +461,7 @@ function App() {
             path='/saved-movies'
             redirectTo='/signin'
             hasPermission={isLogged}>
-            <Header theme="light" positionStyle="main" isNavigation={isLogged} />
+            <Header isNavigation={isLogged} />
             <SavedMovies
               preloading={preloading}
               search={searchSavedMovies}
