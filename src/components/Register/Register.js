@@ -1,80 +1,83 @@
-import FormHeader from '../FormHeader/FormHeader';
-import Form from '../Form/Form';
-import Input from '../Input/Input';
-import SubmitButton from '../SubmitButton/SubmitButton';
-import SignNav from '../SignNav/SignNav';
-import { useState, useEffect } from 'react';
-import './Register.css';
+import AuthForm from "../AuthForm/AuthForm";
+import { useEffect } from "react";
+import useFormAndValidation from "../../hooks/useFormAndValidation";
 
-function Register({ validate, signUp }) {
-  const [values, setValues] = useState({});
-  const [errors, setErrors] = useState({});
-  const [submitPossible, setSubmitPossible] = useState(true);
+function Register({ onSubmit, isError, errorMessage }) {
+  const { values, errors, isValid, resetForm, handleChange } =
+    useFormAndValidation();
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
+  useEffect(() => {
+    resetForm(
+      {
+        name: "",
+        email: "",
+        password: "",
+      },
+      {},
+      false
+    );
+  }, [resetForm]);
 
-    const { [name]: removedError, ...rest } = errors;
-    const error = validate[name](value);
-    setErrors({
-      ...rest,
-      ...(error && { [name]: values[name] && error }),
-    });
-  }
-
-  function handleSignUp(e) {
-    e.preventDefault();
-    const { email, password, name } = values;
-    signUp(email, password, name);
+  function handleSubmit() {
+    onSubmit(values);
   }
 
   return (
-    <section className='register'>
-      <FormHeader text='Добро пожаловать!' />
-      <Form onSubmit={handleSignUp}>
-        <div>
-          <Input
-            name='name'
-            label='Имя'
-            type='text'
-            autoComplete='username'
-            value={values.name || ''}
-            onChange={handleChange}
-            errors={errors.name}
-            placeholder='name'
-          />
-          <Input
-            name='email'
-            label='E-mail'
-            type='email'
-            autoComplete='email'
-            value={values.email || ''}
-            onChange={handleChange}
-            errors={errors.email}
-            placeholder='hello@world.com'
-          />
-          <Input
-            name='password'
-            label='Пароль'
-            type='password'
-            autoComplete='new-password'
-            value={values.password || ''}
-            onChange={handleChange}
-            errors={errors.password}
-            placeholder='password'
-          />
-        </div>
-        <SubmitButton
-          submitPossible={submitPossible}
-          label='Зарегистрироваться'
+    <AuthForm
+      onSubmit={handleSubmit}
+      title="Добро пожаловать!"
+      buttonText="Зарегистрироваться"
+      link="/signin"
+      linkText="Войти"
+      textWithLink="Уже зарегистрированы?"
+      data={values}
+      isValid={isValid}
+      isError={isError}
+      errorMessage={errorMessage}
+    >
+      <div className="auth__field">
+        <span className="auth__input-text">Имя</span>
+        <input
+          name="name"
+          className="auth__input"
+          type="text"
+          onChange={handleChange}
+          value={values.name}
+          minLength="2"
+          maxLength="30"
+          pattern="^[А-ЯЁа-яёA-Za-z\s-]+$"
+          required
         />
-      </Form>
-      <SignNav label='Уже зарегистрированы?' link='Войти' to='/signin' />
-    </section>
+        <span className="auth__input-error">{errors.name}</span>
+      </div>
+
+      <div className="auth__field">
+        <span className="auth__input-text">E-mail</span>
+        <input
+          name="email"
+          className="auth__input"
+          type="email"
+          onChange={handleChange}
+          value={values.email}
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          required
+        />
+        <span className="auth__input-error">{errors.email || ""}</span>
+      </div>
+
+      <div className="auth__field">
+        <span className="auth__input-text">Пароль</span>
+        <input
+          name="password"
+          className="auth__input"
+          type="password"
+          onChange={handleChange}
+          value={values.password}
+          required
+        />
+        <span className="auth__input-error">{errors.password || ""}</span>
+      </div>
+    </AuthForm>
   );
 }
 

@@ -1,69 +1,46 @@
-import MoviesCard from "../MoviesCard/MoviesCard";
 import "./MoviesCardList.css";
-import { useState } from 'react';
+import MoviesCard from "../MoviesCard/MoviesCard";
 
 function MoviesCardList({
-  place,
-  moviesToRender,
-  mySavedMovies,
-  handleMovieSave,
-  handleMovieDelete,
+  filteredMovies,
+  filteredCards,
+  handleMore,
+  isMore,
+  likeFilm,
+  deleteFilm,
+  savedMovies,
 }) {
-  const [showMovies, setShowMovies] = useState(4);
-  function handleMore() {
-    setShowMovies(Math.min(moviesToRender.length, showMovies + 4));
-  }
-
-  const idsOfMySavedMovies = {};
-  if (place === 'all-movies') {
-    for (const movie of mySavedMovies) {
-      idsOfMySavedMovies[movie.movieId] = true;
-    }
-  }
-
   return (
-    <section className="movies-card-list">
-      <div className="movies-card-list__container">
-      {moviesToRender &&
-        moviesToRender.slice(0, showMovies).map((movie) => {
-          let isSaved;
-          switch (place) {
-            case 'all-movies':
-              if (idsOfMySavedMovies[movie.id]) {
-                isSaved = true;
-              } else {
-                isSaved = false;
-              }
-              break;
-            case 'saved-movies':
-              isSaved = true;
-              break;
-            default:
-              console.error('Что-то пошло не так.');
-              break;
-          }
-
-          return (
-            <MoviesCard
-              movieData={movie}
-              place={place}
-              isSaved={isSaved}
-              key={movie.id || movie.movieId}
-              handleMovieDelete={handleMovieDelete}
-              handleMovieSave={handleMovieSave}
-            />
-          );
-        })}
-
-      {moviesToRender && moviesToRender.length > showMovies && (
-        <button
-          className="app__button movies-card-list__more-button"
-          type="button"
-          onClick={handleMore}
-        >
-          Ещё
-        </button>
-      )}
+    <section className="movies">
+      <div className="movies__container content__container">
+        {filteredMovies.length > 0 ? (
+          <>
+            <ul className="movies__list">
+              {filteredCards.map((movie) => {
+                return (
+                  <MoviesCard
+                    key={movie.id}
+                    card={movie}
+                    likeFilm={likeFilm}
+                    deleteFilm={deleteFilm}
+                    savedMovies={savedMovies}
+                  />
+                );
+              })}
+            </ul>
+            {isMore && (
+              <button
+                className="movies__btn"
+                type="button"
+                onClick={handleMore}
+              >
+                Ещё
+              </button>
+            )}
+          </>
+        ) : (
+          <div className="movies__nothing">Ничего не найдено</div>
+        )}
       </div>
     </section>
   );

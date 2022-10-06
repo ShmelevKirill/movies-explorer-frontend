@@ -1,11 +1,7 @@
-import { Route, Redirect } from 'react-router-dom';
+import { Route, Redirect } from "react-router-dom";
 
-function ProtectedRoute({ redirectTo, hasPermission, children }) {
-  return (
-    <Route>
-      {() => (hasPermission ? children : <Redirect to={redirectTo} />)}
-    </Route>
-  );
+function ProtectedRoute({ children, loggedIn }) {
+  return <Route>{loggedIn ? children : <Redirect to="/" />}</Route>;
 }
 
 export default ProtectedRoute;

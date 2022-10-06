@@ -1,21 +1,32 @@
-import { NavLink, useRouteMatch } from 'react-router-dom';
+import { NavLink, useLocation } from "react-router-dom";
 import './Header.css';
-import { ReactComponent as Logo } from '../../images/logo.svg';
+import logo from '../../images/logo.svg';
 import Navigation from "../Navigation/Navigation";
-import SignButtons from '../SignButtons/SignButtons';
 
-export default function Header({ isNavigation }) {
+export default function Header({ loggedIn }) {
+  const { pathname } = useLocation();
 
-  const isMain = useRouteMatch({ path: "/", exact: true });
+  if (
+    pathname !== "/" &&
+    pathname !== "/movies" &&
+    pathname !== "/saved-movies" &&
+    pathname !== "/profile"
+  ) {
+    return <></>;
+  }
 
   return (
-    <header className={`header ${isMain ? 'header_theme_color' : ''}`}>
-      <NavLink to='/' className='header__home'>
-        <Logo className='header__logo' />
-      </NavLink>
-      {isNavigation && <Navigation />}
-      {!isNavigation && <SignButtons />}
+    <header className={`header ${pathname === "/" ? "header_theme_color" : ""}`}>
+      <div className="header__container">
+      <NavLink to="/" className="header__logo">
+          <img src={logo} alt="Логотип" />
+        </NavLink>
+
+        <Navigation
+          loggedIn={loggedIn}
+          isMain={pathname === "/" ? true : false}
+        />
+      </div>
     </header>
   );
 }
-

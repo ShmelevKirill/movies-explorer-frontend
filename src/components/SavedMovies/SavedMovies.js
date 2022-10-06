@@ -1,38 +1,35 @@
-import SearchForm from '../SearchForm/SearchForm';
-import Preloader from '../Preloader/Preloader';
-import MoviesCardList from '../MoviesCardList/MoviesCardList';
-import SearchInfo from '../SearchInfo/SearchInfo';
+import SearchForm from "../SearchForm/SearchForm";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import { useEffect } from "react";
 
 function SavedMovies({
-  preloading,
-  search,
-  mySavedMovies,
-  filteredMySavedMovies,
-  inputKeyString,
-  searchResult,
-  handleMovieDelete,
+  savedMovies,
+  filteredSavedMovies,
+  deleteFilm,
+  searchSavedFilms,
+  setIsSuccess,
+  setMessageInfo,
+  setIsOpen,
 }) {
-  return (
-    <section>
-      <SearchForm search={search} inputKeyString={inputKeyString} />
-      {preloading && <Preloader />}
+  useEffect(() => {
+    searchSavedFilms("", false);
+  }, []);
 
-      {mySavedMovies && mySavedMovies.length > 0 && (
-        <MoviesCardList
-          place='saved-movies'
-          moviesToRender={
-            filteredMySavedMovies ? filteredMySavedMovies : mySavedMovies
-          }
-          handleMovieDelete={handleMovieDelete}
-        />
-      )}
-      {inputKeyString &&
-        !preloading &&
-        filteredMySavedMovies &&
-        filteredMySavedMovies.length === 0 && (
-          <SearchInfo text={searchResult} />
-        )}
-    </section>
+  return (
+    <>
+      <SearchForm
+        searchFilms={searchSavedFilms}
+        setIsSuccess={setIsSuccess}
+        setMessageInfo={setMessageInfo}
+        setIsOpen={setIsOpen}
+      />
+      <MoviesCardList
+        filteredMovies={filteredSavedMovies}
+        filteredCards={filteredSavedMovies}
+        deleteFilm={deleteFilm}
+        savedMovies={savedMovies}
+      />
+    </>
   );
 }
 

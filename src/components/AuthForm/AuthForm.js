@@ -1,96 +1,58 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import "./AuthForm.css";
-import {useFormWithValidation} from "../Validator/Validator";
+import { NavLink } from "react-router-dom";
+import logo from "../../images/logo.svg";
 
-export default function AuthForm({
-  formName,
+function AuthForm({
+  onSubmit,
   title,
   buttonText,
-  navText,
-  navLinkTo,
-  navLinkText,
-  onSubmit,
+  buttonClass = "",
+  link,
+  linkText,
+  textWithLink,
+  data,
+  isValid,
+  isError,
+  errorMessage,
+  children,
 }) {
-  const [isDisabled, setIsDisabled] = useState(false);
-
-  const { values, handleChange, errors, isValid } =
-    useFormWithValidation();
-
-  function handleFormSubmit(e) {
+  function handleSubmit(e) {
     e.preventDefault();
-    setIsDisabled (true);
-    onSubmit(values)
-    .then(()=> setIsDisabled (false))
-    .catch (()=>setIsDisabled (false));
+    onSubmit(data);
   }
 
   return (
-    <form
-      className="auth-form"
-      name={formName}
-      noValidate
-      onSubmit={handleFormSubmit}
-    >
-      <h2 className="auth-form__title">{title}</h2>
-      {formName !== "loginForm" && (
-        <label className="app__button auth-form__input-label">
-          Имя
-          <input
-            type="text"
-            className="auth-form__input"
-            placeholder="Имя"
-            name="name"
-            value={values.name}
-            onChange={handleChange}
-            disabled={isDisabled}
-            required
-          ></input>
-          <span className="auth-form__error-message">{errors.name}</span>
-        </label>
-      )}
-      <label className="app__button auth-form__input-label">
-        E-mail
-        <input
-          type="email"
-          className="auth-form__input"
-          placeholder="Email"
-          name="email"
-          pattern="\S+@\S+\.\S+"
-          title="Например: test@test.ru"
-          value={values.email}
-          onChange={handleChange}
-          disabled={isDisabled}
-          required
-        ></input>
-        <span className="auth-form__error-message">{errors.email}</span>
-      </label>
-      <label className="app__button auth-form__input-label">
-        Пароль
-        <input
-          type="password"
-          className="auth-form__input"
-          placeholder="Пароль"
-          name="password"
-          value={values.password}
-          onChange={handleChange}
-          required
-        ></input>
-        <span className="auth-form__error-message">{errors.password}</span>
-      </label>
-      <button
-        className="auth-form__button app__button"
-        type="submit"
-        disabled={!isValid || isDisabled}
-      >
-        {buttonText}
-      </button>
-      <span className="auth-form__nav-span">
-        {navText}
-        <Link to={navLinkTo} className="app__button auth-form__nav-span-link">
-          {navLinkText}
-        </Link>
-      </span>
-    </form>
+    <section className="auth">
+      <form className="auth__form" onSubmit={handleSubmit}>
+        <div className="auth__block">
+          <NavLink className="auth__logo" exact to="/">
+            <img className="auth__img" src={logo} alt="Логотип" />
+          </NavLink>
+          <h1 className="auth__title">{title}</h1>
+          {children}
+        </div>
+        <div className="auth__block">
+          {isError && <span className="auth__error">{errorMessage}</span>}
+          <button
+            type="submit"
+            className={`auth__btn ${
+              !isValid ? "auth__btn_disabled" : ""
+            } ${buttonClass}`}
+            aria-label={title}
+            disabled={!isValid}
+          >
+            {buttonText}
+          </button>
+          <p className="auth__text">
+            {textWithLink}
+            <NavLink className="auth__link" to={link}>
+              {linkText}
+            </NavLink>
+          </p>
+        </div>
+      </form>
+    </section>
   );
 }
+
+export default AuthForm;

@@ -1,18 +1,36 @@
-import React from "react";
 import "./InfoTooltip.css";
+import success from "../../images/success.svg";
+import error from "../../images/error.svg";
 
-export default function InfoTooltip({ isOpen, text, onClose }) {
+function InfoTooltip({ isSuccess, onClose, isOpen, message }) {
+  function closePopup(e) {
+    if (e.target.className === "info-popup") {
+      onClose();
+    }
+  }
+
   return (
-    <div className={`popup popup_type_info ${isOpen && "popup_opened"}`}>
-      <div className="popup__container popup_container_type_info">
-        <button
-          onClick={onClose}
-          className="popup__close-btn app_button"
-          type="button"
-          aria-label="Закрыть"
-        ></button>
-        <p className="popup__info">{text}</p>
-      </div>
-    </div>
+    <>
+      {isOpen && (
+        <div className="info-popup" onClick={closePopup}>
+          <div className="info-popup__container">
+            <button
+              type="button"
+              className="info-popup__close-btn"
+              aria-label="Закрыть"
+              onClick={onClose}
+            ></button>
+            <img
+              className="info-popup__img"
+              src={isSuccess ? success : error}
+              alt={isSuccess ? "Успешно" : "Ошибка"}
+            />
+            <h3 className="info-popup__message">{message}</h3>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
+
+export default InfoTooltip;

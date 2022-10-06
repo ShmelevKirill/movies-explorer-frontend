@@ -1,71 +1,67 @@
-import FormHeader from '../FormHeader/FormHeader';
-import Input from '../Input/Input';
-import SubmitButton from '../SubmitButton/SubmitButton';
-import Form from '../Form/Form';
-import SignNav from '../SignNav/SignNav';
-import { useState, useEffect } from 'react';
-import './Login.css';
+import AuthForm from "../AuthForm/AuthForm";
+import { useEffect } from "react";
+import useFormAndValidation from "../../hooks/useFormAndValidation";
 
-function Login({ initialValues, validate, signIn }) {
-  const [values, setValues] = useState(initialValues);
-  const [errors, setErrors] = useState({});
-  const [submitPossible, setSubmitPossible] = useState(true);
+function Login({ onSubmit, isError, errorMessage }) {
+  const { values, errors, isValid, resetForm, handleChange } =
+    useFormAndValidation();
 
-  function handleChange(e) {
-    const { name, value } = e.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
+  useEffect(() => {
+    resetForm(
+      {
+        email: "",
+        password: "",
+      },
+      {},
+      false
+    );
+  }, [resetForm]);
 
-    const { [name]: removedError, ...rest } = errors;
-    const error = validate[name](value);
-    setErrors({
-      ...rest,
-      ...(error && { [name]: values[name] && error }),
-    });
-  }
-
-  function handleSignIn(e) {
-    e.preventDefault();
-    const { email, password } = values;
-    signIn(email, password);
+  function handleSubmit() {
+    onSubmit(values);
   }
 
   return (
-    <section className='login'>
-      <FormHeader text='Рады видеть!' />
-      <Form onSubmit={handleSignIn}>
-        <div>
-          <Input
-            name='email'
-            label='E-mail'
-            type='email'
-            autoComplete='username'
-            value={values.email || ''}
-            onChange={handleChange}
-            errors={errors.email}
-            placeholder='name@some.com'
-          />
-          <Input
-            name='password'
-            label='Пароль'
-            type='password'
-            autoComplete='current-password'
-            value={values.password || ''}
-            onChange={handleChange}
-            errors={errors.password}
-            placeholder='пароль должен состоять не менее, чем из восьми символов'
-          />
-        </div>
-        <SubmitButton submitPossible={submitPossible} label='Войти' />
-      </Form>
-      <SignNav
-        label='Ещё не зарегистрированы?'
-        link='Регистрация'
-        to='/signup'
-      />
-    </section>
+    <AuthForm
+      onSubmit={handleSubmit}
+      title="Рады видеть!"
+      buttonText="Войти"
+      buttonClass="auth__btn_name_login"
+      link="/signup"
+      linkText="Регистрация"
+      textWithLink="Ещё не зарегистрированы?"
+      data={values}
+      isValid={isValid}
+      isError={isError}
+      errorMessage={errorMessage}
+    >
+      <div className="auth__field">
+        <span className="auth__input-text">E-mail</span>
+        <input
+          name="email"
+          className="auth__input"
+          type="text"
+          onChange={handleChange}
+          value={values.email}
+          pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+          required
+        />
+        <span className="auth__input-error">{errors.email || ""}</span>
+      </div>
+
+      <div className="auth__field">
+        <span className="auth__input-text">Пароль</span>
+        <input
+          name="password"
+          className="auth__input"
+          type="password"
+          onChange={handleChange}
+          value={values.password}
+          required
+        />
+        <span className="auth__input-error">{errors.password || ""}</span>
+      </div>
+    </AuthForm>
   );
 }
 
