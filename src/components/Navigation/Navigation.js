@@ -86,6 +86,8 @@ export default function Navigation({ loggedIn, isMain }) {
                 }`}
                 onClick={closeMenu}
               >
+                
+                Аккаунт
                 <svg
                   className="navigation__img_name_auth"
                   width="12"
@@ -104,7 +106,6 @@ export default function Navigation({ loggedIn, isMain }) {
                     fill="black"
                   />
                 </svg>
-                Аккаунт
               </NavLink>
             </nav>
           </div>
