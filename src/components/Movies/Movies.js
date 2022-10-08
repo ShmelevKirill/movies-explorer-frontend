@@ -18,10 +18,9 @@ function Movies({
   filteredCards,
   setFilteredCards,
 }) {
-  // Размер окна
+
   const [widthWindow, setWidthWindow] = useState(window.innerWidth);
 
-  // Количество карточек
   const [amountCards, setAmountCards] = useState(16);
   const [amountMoreCards, setAmountMoreCards] = useState(4);
   const [isMore, setIsMore] = useState(false);

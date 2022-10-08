@@ -11,7 +11,7 @@ export default function FilterCheckbox({ handleShortFilms, isShortFilm }) {
         onChange={handleShortFilms}
         ></input>
       <span className="filter-checkbox__slider"></span>
-      <span className="filter-checkbox__label">Короткометражки</span>
+      <label htmlFor="checkbox" className="filter-checkbox__label">Короткометражки</label>
     </label>
   );
 }

@@ -25,22 +25,17 @@ import {
 } from "../../configs/errors";
 
 function App() {
-  // Информационный попап
   const [isSuccess, setIsSuccess] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [messageInfo, setMessageInfo] = useState("");
 
-  // Ошибки
   const [isError, setIsError] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
-  // Загрузка
   const [isLoading, setIsLoading] = useState(false);
 
-  // Редактирование профиля
   const [isEdit, setIsEdit] = useState(false);
 
-  // Пользователь
   const [loggedIn, setLoggedIn] = useState(false);
   const [currentUser, setCurrentUser] = useState({
     name: "",
@@ -48,19 +43,16 @@ function App() {
     _id: "",
   });
 
-  // Поиск
   const [isSearch, setIsSearch] = useState(false);
   const [filteredMovies, setFilteredMovies] = useState([]);
   const [filteredSavedMovies, setFilteredSavedMovies] = useState([]);
   const [filteredCards, setFilteredCards] = useState([]);
 
-  // Карточки
   const [savedMovies, setSavedMovies] = useState([]);
 
   const history = useHistory();
   const { pathname } = useLocation();
 
-  // Получаем всю информацию о пользователе
   useEffect(() => {
     if (loggedIn) {
       mainApi
@@ -184,7 +176,7 @@ function App() {
         setCurrentUser(data);
         setIsEdit(false);
         setIsSuccess(true);
-        setMessageInfo("Данные вашего профиля обновлены");
+        setMessageInfo("Данные профиля обновлены");
         setIsOpen(true);
       })
       .catch((err) => {
@@ -237,7 +229,7 @@ function App() {
         .catch((err) => {
           setIsSuccess(false);
           setMessageInfo(
-            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+            "Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного или попробуйте ещё раз"
           );
           setIsOpen(true);
         })

@@ -84,7 +84,6 @@ class MainApi {
 
 const mainApi = new MainApi({
   baseUrl: "https://explorer.movies.nomoredomains.sbs",
-  //baseUrl: "http://localhost:3005",
   headers: {
     "content-type": "application/json",
     authorization: `Bearer ${localStorage.getItem("jwt")}`,

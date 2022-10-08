@@ -68,6 +68,7 @@ function SearchForm({ searchFilms, setIsSuccess, setMessageInfo, setIsOpen }) {
             type="search"
             placeholder="Фильм"
             className="search-form__query"
+            onChange={handleChangeFilmName}
             value={filmName}
           />
           <button className="app__button search-form__find-button" type="submit">Найти</button>
