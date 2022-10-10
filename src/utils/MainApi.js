@@ -12,6 +12,7 @@ class MainApi {
     return Promise.reject(res);
   }
 
+  // Базовый запрос без тела
   _fetch(way, methodName) {
     return fetch(`${this._url}${way}`, {
       method: methodName,
@@ -19,6 +20,7 @@ class MainApi {
     }).then(this._checkResponse);
   }
 
+  // Запрос с телом
   _fetchWithBody(way, methodName, bodyContent) {
     return fetch(`${this._url}${way}`, {
       method: methodName,
@@ -27,6 +29,7 @@ class MainApi {
     }).then(this._checkResponse);
   }
 
+  // Получаем массив всех сохраненных фильмов
   getAllFilms() {
     this._headers = {
       ...this._headers,
@@ -35,14 +38,17 @@ class MainApi {
     return this._fetch("/movies", "GET");
   }
 
+  // Создаем фильм
   addNewFilm(newFilm) {
     return this._fetchWithBody("/movies", "POST", newFilm);
   }
 
+  // Удаляем фильм из сохраненных
   deleteMovie(movieId) {
     return this._fetch(`/movies/${movieId}`, "DELETE");
   }
 
+  // Получаем всю информацию о пользователе
   getUserInfo() {
     this._headers = {
       ...this._headers,
@@ -51,10 +57,12 @@ class MainApi {
     return this._fetch("/users/me", "GET");
   }
 
+  // Обновляем информацию пользователя
   setUserInfo(newUserInfo) {
     return this._fetchWithBody("/users/me", "PATCH", newUserInfo);
   }
 
+  // Регистрация
   register({ name, email, password }) {
     return this._fetchWithBody("/signup", "POST", {
       name: name,
@@ -63,6 +71,7 @@ class MainApi {
     });
   }
 
+  // Авторизация
   authorize({ email, password }) {
     return this._fetchWithBody("/signin", "POST", {
       email: email,
@@ -82,8 +91,10 @@ class MainApi {
   };
 }
 
+// Создаем класс апи
 const mainApi = new MainApi({
   baseUrl: "https://explorer.movies.nomoredomains.sbs",
+  //baseUrl: "http://localhost:3005",
   headers: {
     "content-type": "application/json",
     authorization: `Bearer ${localStorage.getItem("jwt")}`,
