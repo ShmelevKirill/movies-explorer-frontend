@@ -12,22 +12,21 @@ class MainApi {
     return Promise.reject(res);
   }
 
-  async _fetch(way, methodName) {
-    const res = await fetch(`${this._url}${way}`, {
+  _fetch(way, methodName) {
+    return fetch(`${this._url}${way}`, {
       method: methodName,
       headers: this._headers,
-    });
-    return this._checkResponse(res);
+    }).then(this._checkResponse);
   }
 
-  async _fetchWithBody(way, methodName, bodyContent) {
-    const res = await fetch(`${this._url}${way}`, {
+  _fetchWithBody(way, methodName, bodyContent) {
+    return fetch(`${this._url}${way}`, {
       method: methodName,
       headers: this._headers,
       body: JSON.stringify(bodyContent),
-    });
-    return this._checkResponse(res);
+    }).then(this._checkResponse);
   }
+
 
   getAllFilms() {
     this._headers = {
@@ -87,6 +86,7 @@ class MainApi {
 
 const mainApi = new MainApi({
   baseUrl: "https://explorer.movies.nomoredomains.sbs",
+  // baseUrl: "http://localhost:3000",
   headers: {
     "content-type": "application/json",
     authorization: `Bearer ${localStorage.getItem("jwt")}`,

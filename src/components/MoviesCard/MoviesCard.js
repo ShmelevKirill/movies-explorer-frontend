@@ -13,7 +13,7 @@ function MoviesCard({ card, likeFilm, deleteFilm, savedMovies }) {
         setIsLiked(true);
       }
     });
-  }, [savedMovies]);
+  }, [card.id, savedMovies]);
 
   function handleDeleteFilm() {
     deleteFilm(card.id);
