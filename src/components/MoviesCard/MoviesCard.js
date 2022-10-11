@@ -8,7 +8,6 @@ function MoviesCard({ card, likeFilm, deleteFilm, savedMovies }) {
   const [isLiked, setIsLiked] = useState(false);
 
   useEffect(() => {
-    // eslint-disable-next-line array-callback-return
     savedMovies.map((movie) => {
       if (card.id === movie.id) {
         setIsLiked(true);
