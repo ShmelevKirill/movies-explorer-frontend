@@ -1,3 +1,5 @@
+Pull requests https://github.com/ShmelevKirill/movies-explorer-frontend/pull/2
+
 # Фронтенд Дипломного Проекта Movies Explorer
 ### *Учебный проект от [Яндекс.Практикум](https://practicum.yandex.ru/web/)*
 
