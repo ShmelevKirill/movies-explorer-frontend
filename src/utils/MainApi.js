@@ -12,19 +12,21 @@ class MainApi {
     return Promise.reject(res);
   }
 
-  _fetch(way, methodName) {
-    return fetch(`${this._url}${way}`, {
+  async _fetch(way, methodName) {
+    const res = await fetch(`${this._url}${way}`, {
       method: methodName,
       headers: this._headers,
-    }).then(this._checkResponse);
+    });
+    return this._checkResponse(res);
   }
 
-  _fetchWithBody(way, methodName, bodyContent) {
-    return fetch(`${this._url}${way}`, {
+  async _fetchWithBody(way, methodName, bodyContent) {
+    const res = await fetch(`${this._url}${way}`, {
       method: methodName,
       headers: this._headers,
       body: JSON.stringify(bodyContent),
-    }).then(this._checkResponse);
+    });
+    return this._checkResponse(res);
   }
 
 

@@ -20,6 +20,7 @@ function SearchForm({ searchFilms, setIsSuccess, setMessageInfo, setIsOpen }) {
         }
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function handleChangeFilmName(e) {
@@ -65,7 +66,7 @@ function SearchForm({ searchFilms, setIsSuccess, setMessageInfo, setIsOpen }) {
         <fieldset className="search-form__film-search">
           <img className="search-form__icon" src={icon} alt="Иконка поиска"></img>
           <input
-            type="search"
+            type="text"
             placeholder="Фильм"
             className="search-form__query"
             onChange={handleChangeFilmName}
