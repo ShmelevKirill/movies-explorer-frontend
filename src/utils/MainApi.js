@@ -12,23 +12,20 @@ class MainApi {
     return Promise.reject(res);
   }
 
-  async _fetch(way, methodName) {
-    const res = await fetch(`${this._url}${way}`, {
+  _fetch(way, methodName) {
+    return fetch(`${this._url}${way}`, {
       method: methodName,
       headers: this._headers,
-    });
-    return this._checkResponse(res);
+    }).then(this._checkResponse);
   }
 
-  async _fetchWithBody(way, methodName, bodyContent) {
-    const res = await fetch(`${this._url}${way}`, {
+  _fetchWithBody(way, methodName, bodyContent) {
+    return fetch(`${this._url}${way}`, {
       method: methodName,
       headers: this._headers,
       body: JSON.stringify(bodyContent),
-    });
-    return this._checkResponse(res);
+    }).then(this._checkResponse);
   }
-
 
   getAllFilms() {
     this._headers = {
@@ -73,18 +70,18 @@ class MainApi {
     });
   }
 
-  getContent = async (jwt) => {
-    const res = await fetch(`${this._url}/users/me`, {
+  getContent = (jwt) => {
+    return fetch(`${this._url}/users/me`, {
       method: "GET",
       headers: {
         Accept: "applications/json",
         "Content-type": "applications/json",
         Authorization: `Bearer ${jwt}`,
       },
-    });
-    return this._checkResponse(res);
+    }).then(this._checkResponse);
   };
 }
+
 
 const mainApi = new MainApi({
   baseUrl: "https://explorer.movies.nomoredomains.sbs",
