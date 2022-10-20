@@ -55,11 +55,11 @@ Movies Explorer - это интерактивная SPA-страница, на �
 - ReactJS
 
 # Ссылки:
-- Frontend: 
+- Frontend: https://explorer.movies.nomoredomains.icu
 - Backend: 
   - Repository: https://github.com/ShmelevKirill/movies-explorer-api/
-  - Website: 
-
-IP: 
+  - Website: https://explorer.movies.nomoredomains.sbs
 
 - Макет: https://disk.yandex.ru/d/wvO9W0ykjLThbg
+
+- Pull requests https://github.com/ShmelevKirill/movies-explorer-frontend/pull/2

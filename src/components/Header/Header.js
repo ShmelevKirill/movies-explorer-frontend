@@ -1,46 +1,32 @@
-import React, { useState } from "react";
-import { Link } from 'react-router-dom';
+import { NavLink, useLocation } from "react-router-dom";
 import './Header.css';
-import "../App/App.css";
 import logo from '../../images/logo.svg';
 import Navigation from "../Navigation/Navigation";
 
-export default function Header({ theme, positionStyle, isLogged }) {
-  const [isNavClosed, setIsNavClosed] = useState(true);
+export default function Header({ loggedIn }) {
+  const { pathname } = useLocation();
 
-  function openNav() {
-    setIsNavClosed(false);
+  if (
+    pathname !== "/" &&
+    pathname !== "/movies" &&
+    pathname !== "/saved-movies" &&
+    pathname !== "/profile"
+  ) {
+    return <></>;
   }
-  function closeNav() {
-    setIsNavClosed(true);
-  }
-
-const headerClassName =
-  "header " +
-  "header_theme_" +
-  theme +
-  " header_style_" +
-  positionStyle;
-const logoClassName =
-  "app__button header__logo header__logo_style_" + positionStyle;
 
   return (
-    <header className={headerClassName}>
-      <Link to={"/"}>
-        <img
-          src={logo}
-          alt="Логотип"
-          aria-label="Главная страница"
-          className={logoClassName}
-        ></img>
-      </Link>
-      {positionStyle !== "auth" && (
+    <header className={`header ${pathname === "/" ? "header_theme_color" : ""}`}>
+      <div className="header__container">
+      <NavLink to="/" className="header__logo">
+          <img src={logo} alt="Логотип" />
+        </NavLink>
+
         <Navigation
-          isLogged={isLogged}
-          isClosed={isNavClosed}
+          loggedIn={loggedIn}
+          isMain={pathname === "/" ? true : false}
         />
-      )}
+      </div>
     </header>
   );
 }
-

@@ -1,88 +1,161 @@
-import React, { useState } from "react";
 import "./Profile.css";
-import ErrorMessage from "../ErrorMessage/ErrorMessage";
+import { useEffect } from "react";
+import useFormAndValidation from "../../hooks/useFormAndValidation";
 
-export default function Profile() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+function Profile({
+  handleLogout,
+  onSubmit,
+  isError,
+  errorMessage,
+  user,
+  handleEdit,
+  isEdit,
+  setIsEdit,
+}) {
+  const { values, errors, isValid, resetForm, handleChange, setIsValid } =
+    useFormAndValidation();
 
-  const [inEditMode, setInEditMode] = useState(false);
-  
-  function handleNameChange(e) {
-    setName(e.target.value);
-  }
-  function handleEmailChange(e) {
-    setEmail(e.target.value);
-  }
-  function handleEditClick() {
-    setInEditMode(true);
-  }
-  function handleProfileSubmit (e) {
-    e.preventDefault();
-    console.log ("Submit");
-    if (!email || !name) {
-      setError ("Имя и email должны быть заполнены");
-      return;
+  useEffect(() => {
+    setIsEdit(false);
+  }, []);
+
+  useEffect(() => {
+    if (values.name === user.name) {
+      setIsValid(false);
     }
-    setError ("");
+  }, [values.name]);
+
+  useEffect(() => {
+    if (values.email === user.email) {
+      setIsValid(false);
+    }
+  }, [values.email]);
+
+  useEffect(() => {
+    resetForm(
+      {
+        name: user.name,
+        email: user.email,
+      },
+      {},
+      false
+    );
+  }, [resetForm]);
+
+  function editTrue() {
+    handleEdit();
+    values.name = user.name;
+    values.email = user.email;
+    setIsValid(false);
   }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onSubmit(values);
+    setIsValid(false);
+  }
+
   return (
-    <form className="profile-form" name="profile-form" novalidate
-    onSubmit={handleProfileSubmit}>
-      <h2 className="profile-form__greeting">Привет, Виталий!</h2>
-      <label className="app__button profile-form__input-label">
-        Имя
-        <input
-          className="profile-form__input"
-          type="text"
-          placeholder="Имя"
-          name="name"
-          value={name}
-          onChange={handleNameChange}
-          required
-          disabled = {!inEditMode}
-        ></input>
-      </label>
-      <label className="app__button profile-form__input-label">
-        E-mail
-        <input
-          type="email"
-          className="profile-form__input"
-          placeholder="Email"
-          name="email"
-          value={email}
-          onChange={handleEmailChange}
-          required
-          disabled = {!inEditMode}
-        ></input>
-      </label>
-      <ErrorMessage text={error} />
-      {inEditMode ? (
-        <button
-          className="profile-form__save-button app__button"
-          type="submit"
-          disabled={error!==""}
-        >
-          Сохранить
-        </button>
-      ) : (
-        <>
-          <button
-            className="profile-form__edit-button app__button"
-            type="button"
-            onClick={handleEditClick}
-          >
-            Редактировать
-          </button>
-          <button
-            className="profile-form__exit-button app__button"
-            type="button"
-          >
-            Выйти из аккаунта
-          </button>
-        </>
-      )}
-    </form>
+    <section className="profile">
+      <div className="profile__container content__container">
+        <h1 className="profile__title">Привет, {user.name}!</h1>
+        <form className="profile__form" onSubmit={handleSubmit}>
+          <ul className="profile__list">
+            <li className="profile__item">
+              <span className="profile__text">Имя</span>
+              {isEdit ? (
+                <>
+                  <input
+                    className="profile__input profile__input_name_name"
+                    value={values.name}
+                    name="name"
+                    type="text"
+                    minLength="2"
+                    maxLength="30"
+                    onChange={handleChange}
+                    pattern="^[А-ЯЁа-яёA-Za-z\s-]+$"
+                    required
+                  />
+                  <span className="profile__input-error">
+                    {errors.name || ""}
+                  </span>
+                </>
+              ) : (
+                <input
+                  className="profile__input profile__input_name_name"
+                  value={user.name}
+                  readOnly
+                  disabled
+                />
+              )}
+            </li>
+            <li className="profile__item">
+              <span className="profile__text">E-mail</span>
+              {isEdit ? (
+                <>
+                  <input
+                    className="profile__input profile__input_name_email"
+                    value={values.email}
+                    name="email"
+                    type="email"
+                    onChange={handleChange}
+                    pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                    required
+                  />
+                  <span className="profile__input-error">
+                    {errors.email || ""}
+                  </span>
+                </>
+              ) : (
+                <input
+                  className="profile__input profile__input_name_email"
+                  value={user.email}
+                  readOnly
+                  disabled
+                />
+              )}
+            </li>
+          </ul>
+          <div className="profile__buttons">
+            {isEdit ? (
+              <>
+                {isError && (
+                  <span className="profile__error">{errorMessage}</span>
+                )}
+                <button
+                  type="submit"
+                  className={`profile__btn profile__btn_name_save ${
+                    !isValid ? "profile__btn_disabled" : ""
+                  }`}
+                  aria-label="Сохранить"
+                  disabled={!isValid}
+                >
+                  Сохранить
+                </button>
+              </>
+            ) : (
+              <>
+                <button
+                  type="submit"
+                  className="profile__btn profile__btn_name_edit"
+                  onClick={editTrue}
+                >
+                  Редактировать
+                </button>
+                <button
+                  type="button"
+                  className="profile__btn profile__btn_name_logout"
+                  onClick={handleLogout}
+                >
+                  Выйти из аккаунта
+                </button>
+              </>
+            )}
+          </div>
+        </form>
+      </div>
+    </section>
   );
 }
+
+export default Profile;
