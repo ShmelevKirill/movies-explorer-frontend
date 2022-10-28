@@ -48,6 +48,13 @@
   }
 }
 
+@media (max-width: 625px) {
+  .promo__img {
+    width: 500px;
+    height: 230px;
+  }
+}
+
 @media (max-width: 600px) {
   .promo {
     padding: 220px 20px 50px;
@@ -63,6 +70,11 @@
     font-size: 33px;
     width: 420px;
   }
+
+  .promo__img {
+    width: 400px;
+    height: 230px;
+  }
 }
 
 @media (max-width: 423px) {
@@ -73,6 +85,11 @@
   .promo__title {
     width: 380px;
     font-size: 35px;
+  }
+
+  .promo__img {
+    width: 350px;
+    height: 230px;
   }
 }
 
