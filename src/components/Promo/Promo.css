@@ -86,4 +86,9 @@
     font-size: 31px;
     line-height: 39px;
   }
+
+  .promo__img {
+    width: 320px;
+    height: 230px;
+  }
 }
