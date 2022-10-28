@@ -31,13 +31,14 @@
   }
 
   .promo__img {
-    width: 680px;
+    width: 600px;
     height: 230px;
     align-self: center;
   }
 
   .promo__title {
     text-align: center;
+    width: 600px;
   }
 }
 
@@ -61,7 +62,7 @@
   }
 
   .promo__title {
-    width: 500px;
+    width: 480px;
   }
 }
 
@@ -83,7 +84,7 @@
   }
 
   .promo__title {
-    width: 380px;
+    width: 360px;
     font-size: 35px;
   }
 
