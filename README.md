@@ -61,5 +61,3 @@ Movies Explorer - это интерактивная SPA-страница, на �
   - Website: https://explorer.movies.nomoredomains.sbs
 
 - Макет: https://disk.yandex.ru/d/wvO9W0ykjLThbg
-
-- Pull requests https://github.com/ShmelevKirill/movies-explorer-frontend/pull/2
